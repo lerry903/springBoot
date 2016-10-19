@@ -1,5 +1,7 @@
 package org.yctech.resource;
 
+import org.yctech.util.CollectionUtil;
+
 import java.util.*;
 
 /**
@@ -32,8 +34,8 @@ public class ResourceTemplate {
     protected Set noReferences;
 
     /**
-     * @param _key      resource��key.
-     * @param _template ��ʼ�ġ�û�о�������ͺϳɵ�resource��ֵ.
+     * @param _key      resource的key.
+     * @param _template 初始的、没有经过解析和合成的resource的值.
      */
     public ResourceTemplate(String _key, String _template, Locale _locale) {
         key = _key;
@@ -44,10 +46,7 @@ public class ResourceTemplate {
     }
 
     protected void addNoReferences(Set _noReferences) {
-        for (Iterator it = noReferences.iterator(); it.hasNext();) {
-            Object item = it.next();
-            _noReferences.add(item);
-        }
+        CollectionUtil.add(noReferences, _noReferences);
     }
 
     protected Set getNoReferences() {
@@ -55,11 +54,11 @@ public class ResourceTemplate {
     }
 
     /**
-     * �õ�ģ��Ķ�̬��ɵ����ݣ�ģ���еĲ������_propsȷ�������ģ���е�
-     * ������_props��û�ж��壬ʹ�ÿ��ַ�""������֡�
+     * 得到模板的动态生成的内容，模板中的参数部分由_props确定。如果模板中的
+     * 参数在_props中没有定义，使用空字符串""替代参数部分。
      *
-     * @param _props �滻����
-     *               return �����滻��Ĳ���
+     * @param _props 替换参数
+     *               return 返回替换过的参数
      */
     public String getString(Properties _props) {
         StringBuffer resultBuf = new StringBuffer();
@@ -153,7 +152,7 @@ public class ResourceTemplate {
     }
 
     /**
-     * �õ�ģ��Ķ�̬��ɵ����ݣ�ģ���еĲ����ɿ��ַ�""���
+     * 得到模板的动态生成的内容，模板中的参数由空字符串""替代。
      */
     public String getString() {
         return getString(new Properties());

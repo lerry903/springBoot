@@ -10,51 +10,51 @@ import java.util.*;
  */
 public class ConstantsResource {
     /**
-     * ȱʡ��Locale
+     * 缺省的Locale
      */
     private Locale defaultLocale = null;
 
     /**
-     * ���õ�ConstantsResource����
+     * 内置的ConstantsResource对象
      */
     protected static ConstantsResource resource = null;
 
 
     /**
-     * ��������Locale��Resource��Ϣ������
+     * 保存所有Locale的Resource信息的容器
      */
     private Map globeResource;
 
 
     /**
-     * resource�Ļ���
+     * resource的基本名
      */
     private String[] baseNames;
 
 
     /**
-     * Resource��Locale�б�
+     * Resource的Locale列表
      */
     private List localeList;
 
 
     /**
-     * ָ����Resource��ClassLoader
+     * 指定的Resource的ClassLoader
      */
     private ClassLoader classLoader;
 
 
     /**
-     * ˽�еĹ�������
+     * 私有的构建方法
      */
     private ConstantsResource() {
         init();
     }
 
     /**
-     * ��ȡConstantsResource��ʵ��
+     * 获取ConstantsResource的实例
      *
-     * @return ConstantsResource��Ψһʵ��
+     * @return ConstantsResource的唯一实例
      */
     public synchronized static ConstantsResource getInstance() {
         if (resource == null) {
@@ -63,7 +63,7 @@ public class ConstantsResource {
         return resource;
     }
 
-    protected void init(){
+    protected void init() {
         String defaultLocaleStr = ResourceConfig.DEFAULT_LOCALE;
         StringTokenizer st = new StringTokenizer(defaultLocaleStr, "_");
         defaultLocale = new Locale(st.nextToken(), st.nextToken());
@@ -72,34 +72,33 @@ public class ConstantsResource {
         ArrayList localeList = new ArrayList();
         for (int i = 0; i < langStrs.length; i++) {
             String[] sLocale = langStrs[i].split("_");
-            localeList.add(new Locale(sLocale[0],sLocale[1]));
+            localeList.add(new Locale(sLocale[0], sLocale[1]));
         }
 
 //        ResourceBox.getInstance().initialize("resourcebox",localeList);
 
 
         String constantsBasename = ResourceConfig.CONSTANTS_FILES;
-        StringTokenizer st2  = new StringTokenizer(constantsBasename,";");
+        StringTokenizer st2 = new StringTokenizer(constantsBasename, ";");
         baseNames = new String[st2.countTokens()];
         int i = 0;
-        while(st2.hasMoreTokens()) {
+        while (st2.hasMoreTokens()) {
             baseNames[i++] = st2.nextToken().trim();
         }
-        initialize(baseNames,localeList,null);
+        initialize(baseNames, localeList, null);
 
     }
 
     /**
-     * ��ʼ��ConstantsResource��ʹ��ָ����baseName��locale��classLoader��ȡproperty
-     * resource�ļ���
-     * ���û�м̳й�ϵ���ļ����ظ�������resourceʱ��������Ϣ�ᱻ��¼������
-     * �����������С�
+     * 初始化ConstantsResource，使用指定的baseName、locale、classLoader读取property
+     * resource文件。
+     * 如果没有继承关系的文件中重复定义了resource时，错误信息会被记录下来，
+     * 程序依旧运行。
      *
-     * @param _baseName    resource�ļ��Ļ�����
-     * @param _localeList  ��Ҫ�����Locale���б�������Item��һ��Locale����
-     * @param _classLoader ʹ�õ�ClassLoader
-     * @throws java.util.MissingResourceException
-     *          ָ����properties�ļ�����̳е��ļ��Ҳ���ʱ�׳�
+     * @param _baseName    resource文件的基本名字
+     * @param _localeList  需要载入的Locale的列表，里面包含的Item是一个Locale对象
+     * @param _classLoader 使用的ClassLoader
+     * @throws java.util.MissingResourceException 指定的properties文件或被它继承的文件找不到时抛出
      */
     private void initialize(String[] _baseName,
                             List _localeList,
@@ -127,7 +126,8 @@ public class ConstantsResource {
     }
 
     /**
-     * ȡȱʡLocale
+     * 取缺省Locale
+     *
      * @return
      */
 
@@ -136,8 +136,8 @@ public class ConstantsResource {
     }
 
     /**
-     * ����ȱʡLocale
-
+     * 设置缺省Locale
+     *
      * @param defaultLocale
      */
     public void setDefaultLocale(Locale defaultLocale) {
@@ -145,13 +145,12 @@ public class ConstantsResource {
     }
 
     /**
-     * ���_key�õ���Ӧ��resource��
+     * 根据_key得到相应的resource。
      *
-     * @param _key  ���ָ���ļ�ֵ��ȡȱʡ��Resource
-     * @param _type Constants ������
-     * @return ���ػ�ȡ��Resource�������ڷ��ؿ��ַ�
-     * @throws java.util.MissingResourceException
-     *          �Ҳ���ָ����resourceʱ���׳�MissingResourceException
+     * @param _key  根据指定的键值获取缺省的Resource
+     * @param _type Constants 的类型
+     * @return 返回获取的Resource，如果不存在返回空字符串。
+     * @throws java.util.MissingResourceException 找不到指定的resource时，抛出MissingResourceException
      */
     public String getResource(String _type, String _key)
             throws MissingResourceException {
@@ -160,12 +159,11 @@ public class ConstantsResource {
 
 
     /**
-     * ���_key��_arguments�õ���Ӧ��resource��
+     * 根据_key和_arguments得到相应的resource。
      *
-     * @param _type Constants������
-     * @return ���ػ�ȡ��Resource List�������ڷ��ؿ��ַ�
-     * @throws java.util.MissingResourceException
-     *          �Ҳ���ָ����resourceʱ���׳�MissingResourceException
+     * @param _type Constants的类型
+     * @return 返回获取的Resource List，如果不存在返回空字符串。
+     * @throws java.util.MissingResourceException 找不到指定的resource时，抛出MissingResourceException
      */
     public List getResourceByType(String _type)
             throws MissingResourceException {
@@ -174,14 +172,13 @@ public class ConstantsResource {
 
 
     /**
-     * ���_key�õ���Ӧ��resource��
+     * 根据_key得到相应的resource。
      *
-     * @param _key    ���ָ���ļ�ֵ��ȡȱʡ��Resource
-     * @param _type   Constants ������
-     * @param _locale ָ����������Ϣ
-     * @return ���ػ�ȡ��Resource�������ڷ��ؿ��ַ�
-     * @throws java.util.MissingResourceException
-     *          �Ҳ���ָ����resourceʱ���׳�MissingResourceException
+     * @param _key    根据指定的键值获取缺省的Resource
+     * @param _type   Constants 的类型
+     * @param _locale 指定的区域信息
+     * @return 返回获取的Resource，如果不存在返回空字符串。
+     * @throws java.util.MissingResourceException 找不到指定的resource时，抛出MissingResourceException
      */
     public String getResource(String _type, String _key, Locale _locale)
             throws MissingResourceException {
@@ -200,13 +197,12 @@ public class ConstantsResource {
 
 
     /**
-     * ���_key��_arguments�õ���Ӧ��resource��
+     * 根据_key和_arguments得到相应的resource。
      *
-     * @param _type   Constants������
-     * @param _locale ָ����������Ϣ
-     * @return ���ػ�ȡ��Resource List�������ڷ��ؿ��ַ�
-     * @throws java.util.MissingResourceException
-     *          �Ҳ���ָ����resourceʱ���׳�MissingResourceException
+     * @param _type   Constants的类型
+     * @param _locale 指定的区域信息
+     * @return 返回获取的Resource List，如果不存在返回空字符串。
+     * @throws java.util.MissingResourceException 找不到指定的resource时，抛出MissingResourceException
      */
     public List getResourceByType(String _type, Locale _locale)
             throws MissingResourceException {
@@ -222,7 +218,7 @@ public class ConstantsResource {
 
 
     /**
-     * �ͷ�������е�singleton instance.
+     * 释放这个类中的singleton instance.
      */
     public static void release() {
         if (resource != null) {
@@ -230,6 +226,10 @@ public class ConstantsResource {
         }
     }
 
+
+    /**
+     * 刷新ResourceBox中的信息
+     */
     public void refresh() {
         initialize(this.baseNames, this.localeList, this.classLoader);
     }
@@ -255,7 +255,7 @@ public class ConstantsResource {
     }
 
     public String[][] getResourceArrayByType(String _type) {
-        return getResourceArrayByType(_type,defaultLocale);
+        return getResourceArrayByType(_type, defaultLocale);
 
     }
 

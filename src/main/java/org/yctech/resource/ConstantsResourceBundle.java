@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class ConstantsResourceBundle {
     /**
-     * ����
+     * 基本名
      */
     private String[] baseNames = null;
 
@@ -22,17 +22,17 @@ public class ConstantsResourceBundle {
     private Locale locale = null;
 
     /**
-     * ʹ�õ�ClassLoader
+     * 使用的ClassLoader
      */
     private ClassLoader loader = null;
 
     /**
-     * ���Resource������
+     * 存放Resource的容器
      */
     private Map resourceMap = null;
 
     /**
-     * ��������б������
+     * 存放类型列表的容器
      */
     private Map typeMap = null;
 
@@ -47,11 +47,11 @@ public class ConstantsResourceBundle {
     private static String TARGET_ENCODE = ResourceConfig.TARGET_ENCODE;
 
     /**
-     * ��������
+     * 构建方法
      *
-     * @param _baseName ����
-     * @param _locale   ������
-     * @param _loader   ʹ�õ�ClassLoader
+     * @param _baseName 基本名
+     * @param _locale   所处区域
+     * @param _loader   使用的ClassLoader
      */
     protected ConstantsResourceBundle(String[] _baseName, Locale _locale, ClassLoader _loader) throws IllegalStateException {
         locale = _locale;
@@ -64,14 +64,14 @@ public class ConstantsResourceBundle {
             String name = baseNames[i];
             Map type = new HashMap();
             Map resource = new HashMap();
-            init(name,locale,loader,type,resource);
+            init(name, locale, loader, type, resource);
 
             typeMap.putAll(type);
             resourceMap.putAll(resource);
         }
     }
 
-    protected static void  init(String _baseName, Locale _locale, ClassLoader _loader,Map typeMap,Map resourceMap) throws IllegalStateException {
+    protected static void init(String _baseName, Locale _locale, ClassLoader _loader, Map typeMap, Map resourceMap) throws IllegalStateException {
 //        baseNames = _baseName;
 
 
@@ -139,12 +139,12 @@ public class ConstantsResourceBundle {
     }
 
     /**
-     * ��ȡConstants�ķ���
+     * 获取Constants的方法
      *
-     * @param _type ����
-     * @param _key  ��ֵ
+     * @param _type 类型
+     * @param _key  键值
      * @return Constants
-     * @throws MissingResourceException ���û���ҵ�Constants
+     * @throws MissingResourceException 如果没有找到Constants
      */
     public String getResource(String _type, String _key)
             throws MissingResourceException {
@@ -160,11 +160,11 @@ public class ConstantsResourceBundle {
 
 
     /**
-     * ��� Constants�����ͻ�ȡ�б�
+     * 根据 Constants的类型获取列表
      *
-     * @param _type ����
-     * @return ���ص�Constants�б�
-     * @throws MissingResourceException ������Ͳ��������׳�
+     * @param _type 类型
+     * @return 返回的Constants列表
+     * @throws MissingResourceException 如果类型不存在则抛出
      */
     public List getResourceByType(String _type)
             throws MissingResourceException {

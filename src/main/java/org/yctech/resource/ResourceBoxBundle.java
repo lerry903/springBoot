@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
+ * 包含继承关系的ResourceBoudle
  * Created by IntelliJ IDEA.
  * User: lerry
  * Date: 2016/10/19
@@ -12,7 +13,7 @@ import java.util.*;
  */
 public class ResourceBoxBundle {
     /**
-     * ����
+     * 基本名
      */
     private String[] baseNames = null;
 
@@ -22,12 +23,12 @@ public class ResourceBoxBundle {
     private Locale locale = null;
 
     /**
-     * ʹ�õ�ClassLoader
+     * 使用的ClassLoader
      */
     private ClassLoader loader = null;
 
     /**
-     * ���Resource������
+     * 存放Resource的容器
      */
     private Map resourceMap = null;
 
@@ -39,11 +40,11 @@ public class ResourceBoxBundle {
     private static String TARGET_ENCODE = ResourceConfig.TARGET_ENCODE;
 
     /**
-     * ��������
+     * 构建方法
      *
-     * @param _baseNames ����
-     * @param _locale   ������
-     * @param _loader   ʹ�õ�ClassLoader
+     * @param _baseNames 基本名
+     * @param _locale    所处区域
+     * @param _loader    使用的ClassLoader
      */
     protected ResourceBoxBundle(String[] _baseNames, Locale _locale, ClassLoader _loader) {
         this.baseNames = _baseNames;
@@ -53,12 +54,12 @@ public class ResourceBoxBundle {
         resourceMap = new HashMap();
         for (int i = 0; i < baseNames.length; i++) {
             String name = baseNames[i];
-            Map map = getResourceMapOfOneFile(name,_locale,_loader);
+            Map map = getResourceMapOfOneFile(name, _locale, _loader);
             resourceMap.putAll(map);
         }
     }
 
-    private static Map  getResourceMapOfOneFile(String _baseName, Locale _locale, ClassLoader _loader)  throws IllegalStateException {
+    private static Map getResourceMapOfOneFile(String _baseName, Locale _locale, ClassLoader _loader) throws IllegalStateException {
 
 
         Map map = new HashMap();
@@ -78,7 +79,7 @@ public class ResourceBoxBundle {
                 while (keys.hasNext()) {
                     String key = (String) keys.next();
                     String resource = (String) baseProperties.get(key);
-                    if(ResourceConfig.VALUE_NEED_ENCODE){
+                    if (ResourceConfig.VALUE_NEED_ENCODE) {
                         resource = new String((resource).getBytes(READ_ENCODE), TARGET_ENCODE);
                     }
                     map.put(key, resource);
@@ -89,7 +90,7 @@ public class ResourceBoxBundle {
 
 //            initRelationships();
         }
-        return  map;
+        return map;
     }
 
     // Getter and Setter
@@ -100,7 +101,6 @@ public class ResourceBoxBundle {
     public void setResourceMap(Map _resourceMap) {
         resourceMap = _resourceMap;
     }
-
 
 
     /**

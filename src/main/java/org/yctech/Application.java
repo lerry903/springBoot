@@ -13,8 +13,6 @@ import org.yctech.resource.ResourceBox;
 public class Application {
 
 	public static void main(String[] args) {
-        System.out.println(GlobalConstant.getConstantResource("successful",1));
-        System.out.println(ResourceBox.getInstance().getResource("business_exception_100"));
-		//SpringApplication.run(Application.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }
