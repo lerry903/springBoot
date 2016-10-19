@@ -8,20 +8,20 @@ import java.util.ResourceBundle;
  */
 public class ResourceUtil {
 
-    private static ResourceBundle systemConfig = null;
+    private static ResourceBundle resourceBundle = null;
 
     public ResourceUtil(){
 
     }
 
     public ResourceUtil(String propertieName){
-        systemConfig = ResourceBundle.getBundle(propertieName);
+        resourceBundle = ResourceBundle.getBundle(propertieName);
     }
 
-    public static String getSystemConfig(String key) {
+    public static String getResource(String key) {
         String result = null;
         try{
-            result = systemConfig.getString(key);
+            result = resourceBundle.getString(key);
         }catch (Exception e){
 
         }

@@ -16,10 +16,10 @@ public class DataBaseUtil {
      * @return
      */
     public static Connection getconn() {
-        String driver = resourceUtil.getSystemConfig("sql.driver");
-        String url = resourceUtil.getSystemConfig("sql.url");
-        String user = resourceUtil.getSystemConfig("sql.user");
-        String password = resourceUtil.getSystemConfig("sql.password");
+        String driver = resourceUtil.getResource("sql.driver");
+        String url = resourceUtil.getResource("sql.url");
+        String user = resourceUtil.getResource("sql.user");
+        String password = resourceUtil.getResource("sql.password");
         Connection conn = null;
         try {
             Class.forName(driver);
@@ -33,6 +33,7 @@ public class DataBaseUtil {
         }
         return conn;
     }
+
 
     public void callProcedure(String procedure, Connection conn) throws SQLException {
         CallableStatement call = conn.prepareCall("{call " + procedure + "}");

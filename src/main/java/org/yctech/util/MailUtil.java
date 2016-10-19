@@ -15,7 +15,7 @@ import org.yctech.common.GlobalConstant;
  */
 public class MailUtil {
 
-	static ResourceUtil resourceUtil = new ResourceUtil("database");
+	static ResourceUtil resourceUtil = new ResourceUtil("mail");
 	
 	/**
 	 * 邮件发送
@@ -33,12 +33,12 @@ public class MailUtil {
 		
 		try {
 			JavaMailSenderImpl senderImpl = new JavaMailSenderImpl();
-			senderImpl.setHost(resourceUtil.getSystemConfig("MAIL_HOST")); //resourceUtil.MAIL_HOST
-			senderImpl.setUsername(resourceUtil.getSystemConfig("MAIL_USERNAME"));  // MAIL_USERNAME
-			senderImpl.setPassword(resourceUtil.getSystemConfig("MAIL_PASSWORD"));   // MAIL_PASSWORD
+			senderImpl.setHost(resourceUtil.getResource("MAIL_HOST")); //resourceUtil.MAIL_HOST
+			senderImpl.setUsername(resourceUtil.getResource("MAIL_USERNAME"));  // MAIL_USERNAME
+			senderImpl.setPassword(resourceUtil.getResource("MAIL_PASSWORD"));   // MAIL_PASSWORD
 			Properties prop = new Properties();
-			prop.put("mail.smtp.auth", resourceUtil.getSystemConfig("MAIL_SMTP_AUTH"));
-			prop.put("mail.smtp.timeout", resourceUtil.getSystemConfig("MAIL_TIMEOUT"));  // MAIL_TIMEOUT
+			prop.put("mail.smtp.auth", resourceUtil.getResource("MAIL_SMTP_AUTH"));
+			prop.put("mail.smtp.timeout", resourceUtil.getResource("MAIL_TIMEOUT"));  // MAIL_TIMEOUT
 			senderImpl.setJavaMailProperties(prop); 
 			
 			MimeMessage mailMessage = senderImpl.createMimeMessage();
@@ -48,7 +48,7 @@ public class MailUtil {
 				messageHelper.setCc(CcUsers);
 			if (BccUsers != null && BccUsers.length > 0)
 				messageHelper.setBcc(BccUsers);
-			messageHelper.setFrom(resourceUtil.getSystemConfig("MAIL_FROM"), resourceUtil.getSystemConfig("MAIL_FROM_NAME"));   //MAIL_FROM   MAIL_FROM_NAME
+			messageHelper.setFrom(resourceUtil.getResource("MAIL_FROM"), resourceUtil.getResource("MAIL_FROM_NAME"));   //MAIL_FROM   MAIL_FROM_NAME
 			messageHelper.setSubject(title);
 			messageHelper.setText(content, true);
 			if (hasFile) {
@@ -64,7 +64,6 @@ public class MailUtil {
 
 	public static void main(String args[]) {
 		System.out.println("send mail Start.....");
-
 		System.out.println("send mail End.....");
 	}
 }
