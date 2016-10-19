@@ -9,11 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Application {
 
-    @RequestMapping("/test")
-    public String toString() {
-        return "test";
-    }
-
     @RequestMapping("/")
 	public String home() {
 		return "Project for Spring Boot !";
